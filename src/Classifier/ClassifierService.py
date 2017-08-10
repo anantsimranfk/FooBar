@@ -10,8 +10,10 @@ def getProductScores(number, vertical, trainedImages):
     print "Got images"
     productScores = {}
     for i in range(len(images)):
+        vector = NetworkHandler.getFeatureVector(images[i])
+        print "Got vector"
         productScores[fsns[i]] = ClassifierUtils.getSimilarityScore(centroid,
-                                                                    NetworkHandler.getFeatureVector(images[i]))
+                                                                    vector)
         print "Processed Image" + str(i)
     return ClassifierUtils.getBestItems(number, productScores)
 

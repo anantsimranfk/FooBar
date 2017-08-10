@@ -14,7 +14,9 @@ def getCentroid(featureVectors):
 
 
 def getSimilarityScore(centroid, imageFeature):
-    cos_sim =  np.dot(centroid, imageFeature) / (norm(centroid) * norm(imageFeature))
+    centroid = np.array(centroid)
+    imageFeature = np.array(imageFeature)
+    cos_sim = np.dot(centroid, imageFeature) / (norm(centroid) * norm(imageFeature))
     return cos_sim
 
 
@@ -22,11 +24,10 @@ def getBestItems(k, myDict):
     bestItems = []
     sorted_scores = sorted(myDict.items(), key=operator.itemgetter(1))
     for i in range(k):
-        if i==len(sorted_scores):
+        if i == len(sorted_scores):
             break
         bestItems.append(sorted_scores[i])
     return bestItems
-
 
 # def getSimilarImages(trendId, imageUrls):
 #     centroid = getCentroid(imageUrls)

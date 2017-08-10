@@ -14,8 +14,8 @@ def chunks(l, n):
         yield l[i:i + n]
 
 
-MAX_FETCH_IDS = 20
-PADDING_IDS = 2000;
+MAX_FETCH_IDS = 150
+PADDING_IDS = 2000
 
 zuluHeaders = {'z-clientId': 'zulu.admin',
                'z-requestId': 'abc',
