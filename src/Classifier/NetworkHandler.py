@@ -1,6 +1,10 @@
 import requests
 from sets import Set
+from multiprocessing.dummy import Pool as ThreadPool
 
+POOL_SIZE = 40
+MAX_FETCH_IDS = 20
+PADDING_IDS = 2000
 
 def getFeatureVector(url):
     apiUrl = "http://10.33.49.81:9001/v2/extract_by_url/image-matching-001"
@@ -8,14 +12,18 @@ def getFeatureVector(url):
     featureString = response.json()["result"]["fv"]
     return featureString
 
+def getFeatureVectors(urls):
+    pool = ThreadPool(POOL_SIZE)
+    vectors = pool.map(getFeatureVector, urls)
+    pool.close()
+    pool.join()
+    return vectors
+
 def chunks(l, n):
     """Yield successive n-sized chunks from l."""
     for i in range(0, len(l), n):
         yield l[i:i + n]
 
-
-MAX_FETCH_IDS = 20
-PADDING_IDS = 2000;
 
 zuluHeaders = {'z-clientId': 'zulu.admin',
                'z-requestId': 'abc',

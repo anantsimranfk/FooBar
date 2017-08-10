@@ -20,7 +20,7 @@ def getSimilarityScore(centroid, imageFeature):
 
 def getBestItems(k, myDict):
     bestItems = []
-    sorted_scores = sorted(myDict.items(), key=operator.itemgetter(1))
+    sorted_scores = sorted(myDict.items(), key=operator.itemgetter(1),reverse=True)
     for i in range(k):
         if i==len(sorted_scores):
             break
