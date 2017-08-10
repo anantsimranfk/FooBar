@@ -1,22 +1,24 @@
 import ClassifierUtils
 import NetworkHandler
-
+import time
 
 def getProductScores(number, vertical, trainedImages):
-    centroid = ClassifierUtils.getCentroid(map(NetworkHandler.getFeatureVector, trainedImages))
-    print "got centroid"
+    featureVectors = NetworkHandler.getFeatureVectors(trainedImages)
+    centroid = ClassifierUtils.getCentroid(featureVectors)
+    print "Got centroid"
     fsns = NetworkHandler.getProductIds(vertical)
     images = NetworkHandler.getImages(fsns)
     print "Got images"
+    featureVectors = NetworkHandler.getFeatureVectors(images)
+    print "Got featureVectors"
     productScores = {}
     for i in range(len(images)):
-        vector = NetworkHandler.getFeatureVector(images[i])
-        print "Got vector"
-        productScores[fsns[i]] = ClassifierUtils.getSimilarityScore(centroid,
-                                                                    vector)
+        productScores[fsns[i]] = ClassifierUtils.getSimilarityScore(centroid,featureVectors[i])
         print "Processed Image" + str(i)
     return ClassifierUtils.getBestItems(number, productScores)
 
+start = time.time()
+print("hello")
 
 # print getProductScores(15, "sandal", [
 #     "http://img.fkcdn.com/image/832/832/j4rc8sw0/sandal/9/e/5/130p909-35-klaur-melbourne-red-original-imaevhqkafzrg7yt.jpeg?q=70",
