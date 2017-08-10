@@ -25,6 +25,11 @@ class hello:
     def GET(self):
         return "Dayumn, my man"
 
+class score:
+    def GET(self):
+        args = json.loads(web.data())
+
+
 
 if __name__ == "__main__":
     app = web.application(urls, globals())

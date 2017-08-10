@@ -10,19 +10,22 @@ imageVsScore = {}
 
 
 def getCentroid(featureVectors):
+    featureVectors = [featureVector for featureVector in featureVectors if featureVector != -1]
     return np.mean(np.array(featureVectors), axis=0)
 
 
 def getSimilarityScore(centroid, imageFeature):
+    if imageFeature == -1:
+        return 10000;
     centroid = np.array(centroid)
     imageFeature = np.array(imageFeature)
-    cos_sim = np.dot(centroid, imageFeature) / (norm(centroid) * norm(imageFeature))
+    cos_sim = 1 - np.dot(centroid, imageFeature) / (norm(centroid) * norm(imageFeature))
     return cos_sim
 
 
 def getBestItems(k, myDict):
     bestItems = []
-    sorted_scores = sorted(myDict.items(), key=operator.itemgetter(1),reverse=True)
+    sorted_scores = sorted(myDict.items(), key=operator.itemgetter(1))
     for i in range(k):
         if i == len(sorted_scores):
             break
