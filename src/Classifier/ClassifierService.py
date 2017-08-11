@@ -3,7 +3,7 @@ import NetworkHandler
 import time
 
 
-def getProductScores(number, vertical, trainedImages):
+def getProductScores(number, vertical, trainedImages, useCosine):
     start = time.time()
     featureVectors = NetworkHandler.getFeatureVectors(trainedImages)
     centroid = ClassifierUtils.getCentroid(featureVectors)
@@ -14,9 +14,14 @@ def getProductScores(number, vertical, trainedImages):
     featureVectors = NetworkHandler.getFeatureVectors(images)
     print str(time.time() - start) + " :Got featureVectors"
     productScores = {}
-    for i in range(len(images)):
-        productScores[fsns[i]] = ClassifierUtils.getSimilarityScore(centroid, featureVectors[i])
-        print str(time.time() - start) + " :Processed Image" + str(i)
+    if useCosine:
+        for i in range(len(images)):
+            productScores[fsns[i]] = ClassifierUtils.getSimilarityScore(centroid, featureVectors[i])
+            print str(time.time() - start) + " :Processed Image cosine" + str(i)
+    else:
+        for i in range(len(images)):
+            productScores[fsns[i]] = ClassifierUtils.euclideanScore(centroid, featureVectors[i])
+            print str(time.time() - start) + " :Processed Image euclidean" + str(i)
     return ClassifierUtils.getBestItems(number, productScores)
 
 

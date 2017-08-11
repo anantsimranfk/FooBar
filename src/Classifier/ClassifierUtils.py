@@ -1,5 +1,4 @@
 import operator
-import requests
 import numpy as np
 from numpy.linalg import norm
 
@@ -13,7 +12,6 @@ def getCentroid(featureVectors):
     featureVectors = [featureVector for featureVector in featureVectors if featureVector != -1]
     return np.mean(np.array(featureVectors), axis=0)
 
-
 def getSimilarityScore(centroid, imageFeature):
     if imageFeature == -1:
         return 10000;
@@ -22,6 +20,10 @@ def getSimilarityScore(centroid, imageFeature):
     cos_sim = 1 - np.dot(centroid, imageFeature) / (norm(centroid) * norm(imageFeature))
     return cos_sim
 
+def euclideanScore(centroid,imageFeature):
+    if imageFeature == -1:
+        return 10000;
+    return np.linalg.norm(centroid-imageFeature)
 
 def getBestItems(k, myDict):
     bestItems = []
@@ -31,6 +33,9 @@ def getBestItems(k, myDict):
             break
         bestItems.append(sorted_scores[i])
     return bestItems
+
+# def getColorFeatures(url):
+#     image = cv2
 
 # def getSimilarImages(trendId, imageUrls):
 #     centroid = getCentroid(imageUrls)

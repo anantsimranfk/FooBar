@@ -3,7 +3,7 @@ from sets import Set
 from multiprocessing.dummy import Pool as ThreadPool
 
 POOL_SIZE = 40
-MAX_FETCH_IDS = 1500
+MAX_FETCH_IDS = 100
 PADDING_IDS = 2000
 
 
