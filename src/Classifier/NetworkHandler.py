@@ -5,8 +5,8 @@ import ClassifierUtils
 from functools import partial
 
 
-POOL_SIZE = 60
-MAX_FETCH_IDS = 5000
+POOL_SIZE = 25
+MAX_FETCH_IDS = 1500
 PADDING_IDS = 2000
 
 
